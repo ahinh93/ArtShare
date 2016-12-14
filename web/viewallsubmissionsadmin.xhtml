@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>View All</title>
+        <style>
+            #divider{
+                width:65px;
+                height:auto;
+                display:inline-block;
+            }
+
+            #back{
+                position:fixed;
+                right:0;
+                top:0;
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+        <h2>Artwork Submissions</h2>
+        <h3>Please feel free to leave a rating.</h3>
+        <div id="back"><p:button id="back" value="Back" outcome="adminDashboard"/></div>
+        <br/><br/>
+
+        <h:form id="searchForm">
+            <p:inputText id="seachTags" value="#{viewAllController.searchTerms}"  />
+            <p:button value="Search"  onclick="#{viewAllController.searchFor()}">
+                <f:ajax event="click" render="winnersTable"/>
+            </p:button><br/><br/>
+        </h:form>
+        <h:dataTable id="winnersTable" value="#{viewAllController.images}" var="aRow"
+                     border="1" cellpadding="2" cellspacing="0">
+            <h:column> 
+                <h:graphicImage id="image" width="350" height="300" url="/image?uid=#{aRow.uid}"/><br/>
+
+
+                Avg Rating: <h:outputLabel value="#{aRow.rating}"/>
+                <h:form>
+                    <p:rating id="rating" value="#{aRow.rating}" cancel="false" >
+                        <p:ajax event="rate" listener="#{viewAllController.onrate}"/>
+                    </p:rating>
+                    <input type="hidden" id="uidkey" name="uidKey" value="#{aRow.uid}"/>
+                    <input type="hidden" name="oldRatingKey" value="#{aRow.rating}"/>
+
+                    <p:growl id="growl" showDetail="true"/><br/>
+                    <p:commandButton value="Add to Cart" action="#{CartController.addToCart()}" actionListener="#{CartController.showMessageGrowl}" update="growl"/>
+                    <div id="divider"/>
+                    <p:commandButton value="Make Winner" action="#{viewAllController.makeWinner()}" actionListener="#{CartController.showWinnerGrowl()}" update="growl"/>
+                </h:form>
+
+            </h:column>
+        </h:dataTable>     
+
+    </h:body>
+</html>
+

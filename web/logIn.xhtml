@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">  
+      
+    <h:head>
+        <title>Log In</title>
+        <style>
+            #login {
+                text-align: center;
+                padding-top: 150px;
+            }
+            
+            
+        </style>
+    </h:head>
+    <h:body>
+        <div id="login">
+            <h:form id="loginForm">
+                <p:focus/>
+                Email: <h:inputText id="email" label="email" required="true" requiredMessage="Email is required." value="#{loginController.email}">    
+                    <f:validateLength minimum="6" />
+                </h:inputText>
+                <h:message for="email" style="color:red"/>
+                <br></br><br/>
+                Password: <h:inputSecret id="password" required="true" requiredMessage="Password is required." label="password" value="#{loginController.password}"> 
+                    <f:validateLength minimum="5" maximum="20" />
+                </h:inputSecret>
+                <h:message for="password" style="color:red" />
+                <br/><br/>  
+                <p:commandButton id="submit" value="Login Into Account" action="#{loginController.findUserEmail()}"></p:commandButton> <br/>
+                <h:outputText id="response" style="text-decoration-color: red" value="#{loginController.response}" />            
+            </h:form> <br/>
+            <p:button id="getPass" value="Retrieve Lost Password" outcome="getpass"/> <br/><br/>
+            <p:button id="back" value="Back" outcome="main"/>
+        </div>
+    </h:body>
+</html>
+

@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            #buttons {
+                position: absolute;
+                left: 0;
+                height: 90%;
+                width: 80%;
+                padding-top: 35px;
+                /*padding-left: 35px;*/                
+            }
+            
+            #loginStatus {
+                padding-right: 8px;
+                vertical-align: top;
+                width: 99.1%;
+                top: 0;
+                position: absolute;
+            }
+            
+            #weeklyWinners {
+                position: absolute;
+                right: 0;
+                width: 20%;
+                height: 100%;
+                /*padding-right: 15px;*/
+                padding-top: 25px;
+                text-align: center;
+            }
+            
+            #sponsors {
+                position: fixed;
+                bottom: 0;
+                width: 99.1%;
+                height: 38px;
+                outline: black solid thin;
+                text-align: center;
+                background: #cccccc;
+            }
+        </style>
+    </h:head>
+    
+    <h:body>
+        <div align="right" id="loginStatus">
+            <h:form>                
+                <h:outputText value="#{dashboardController.userName}"/> &#160;
+                <h:commandLink value="Logout" action="#{dashboardController.logout()}" />
+            </h:form>
+        </div><br/>
+        
+        <div id="buttons" align="center">
+            <h:form>  
+                <p:growl id="msgs" showDetail="true" />
+
+                <p:panel id="media" header="Upload Media" style="margin-bottom:25px">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:link value="Add Images and Video" outcome="uploadpage"/>
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:panel id="cartImage" header="Search / Add Images to Cart" style="margin-bottom:25px">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:link value="View All Image Submissions" outcome="viewallsubmissions" />
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:panel id="cartVideo" header="Search / Add Videos to Cart" style="margin-bottom:25px">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:link value="View All Video Submissions" outcome="viewvideo" />
+                    </h:panelGrid>
+                </p:panel>
+                
+                <p:panel id="checkout" header="Checkout" style="margin-bottom:25px">
+                    <h:panelGrid columns="2" cellpadding="10">                      
+                        <h:link value="Proceed to Checkout" outcome="viewcart"/>
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:panel id="settings" header="Update User Account" style="margin-bottom:25px">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:link value="Update Your Profile Information" outcome="update" />
+                    </h:panelGrid>
+                </p:panel>  
+                
+                <p:panel id="addSponser" header="Become / Add a Sponser" style="margin-bottom:25px">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText value="Enter a URL to a sponser you'd like to add:" />
+                        <h:form>
+                            <h:inputText value="#{dashboardController.inputToken}" />
+                            <h:commandButton value="Add Sponsor" action="#{dashboardController.addSponser()}" /> &#160;
+                            <h:outputText value="#{dashboardController.response}"/>
+                        </h:form>
+                    </h:panelGrid>
+                </p:panel> 
+            </h:form>            
+        </div>
+        
+        <div id="weeklyWinners">
+            Weekly Winners:            
+            <h:dataTable id="currentWinners" value="#{dashboardController.currentWinners}" var="aRow">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Current Winners"/>
+                    </f:facet>
+                    <h:outputText value="#{aRow.author}" />
+                </h:column>
+            </h:dataTable>
+            
+            <br/><br/><br/><br/><br/><br/>
+            
+            <h:dataTable id="pastWinners" value="#{dashboardController.pastWinners}" var="aRow">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Past Winners" />
+                    </f:facet>
+                    <h:outputText value="#{aRow.author}" />
+                </h:column>
+            </h:dataTable>
+        </div>
+        
+        <div id="sponsors">
+            <h:outputText value="Our Sponsors"/><br/>
+            <h:outputText value="#{dashboardController.sponser}"/><br/>
+        </div>
+    </h:body>
+</html>

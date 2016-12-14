@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">  
+    <h:head>
+        <title>Sign Up</title>
+        <style>
+            #form {
+                text-align: center;
+                padding-top: 100px;
+            }
+            #divider{
+                width:20px;
+                height:auto;
+                display:inline-block;
+            }
+        </style>
+        
+    </h:head>
+    <h:body>     
+        <div id="form">
+        <h:form>
+            <h2>Sign Up: </h2>                       
+            Email: <h:inputText id="email" value="#{userController.bean.email}" required="true" requiredMessage="Email is required." >              
+            </h:inputText>
+            <h:message for="email" style="color:red" />
+            <br/><br/>
+            Password: <h:inputSecret id="password" required="true" requiredMessage="Password is required." value="#{userController.bean.password}" >
+                <f:validateLength minimum="5" maximum="20" />                
+            </h:inputSecret>
+            <h:message for="password" style="color:red" />
+            <br/><br/>
+            Fullname: <h:inputText id="fullname" required="true" requiredMessage="Fullname is required." value="#{userController.bean.fullName}">
+                <f:validateRequired />
+            </h:inputText>
+            <h:message for="fullname" style="color:red" />
+            <br/><br/>
+            Check if you wish to subscribe to our mailing list:  
+            <h:selectBooleanCheckbox value="#{userController.bean.subscribed}">
+                <f:selectItem id="yes" itemLabel="Yes" itemValue="Yes"></f:selectItem>
+            </h:selectBooleanCheckbox>
+            <br/><br/>
+            Select your user-level:
+            <h:selectOneListbox id="user-level" required="true" requiredMessage="User-level is required." value="#{userController.bean.userlevel}">
+                <f:selectItem itemValue="Standard" itemLabel="Standard" />
+                <f:selectItem itemValue="Admin" itemLabel="Admin" />
+                <f:validateRequired />
+            </h:selectOneListbox>
+            <h:message for="user-level" style="color:red" />
+            <br/><br/>        
+            Phone Number: <h:inputText id="phoneNo" required="true" requiredMessage="Phone number is required." value="#{userController.bean.phoneNumber}">
+                <f:validateRequired />
+            </h:inputText>
+            <h:message for="phoneNo" style="color:red" />
+            <br/><br/>
+            <h:commandButton id="submit" value="Submit" action="#{userController.createUser}"/> 
+            <div id="divider" />
+            <h:button id="back" value="back" outcome="main"/>
+        </h:form>
+        </div>
+    </h:body>
+</html>
+

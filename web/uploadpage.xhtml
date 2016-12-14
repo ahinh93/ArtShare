@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui"> 
+    <h:head>
+        <title>Upload your media!</title>
+        <style>
+            #back{
+                position:fixed;
+                right:0;
+                top:0;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <div id="back">
+            <p:button value="Back" id="back" outcome="dashboard"/>
+        </div>
+        <h3>Please upload your media here, we appreciate every submission and hope that enjoyed creating it.<br/>
+            Good Luck!</h3>
+        
+        <h:form id="submitMediaForm"  enctype="multipart/form-data" >
+            <h:inputFile id="fileSelect" value="#{uploadController.media}"/>
+            <h:outputText value="  or Enter a YouTube Video ID (Must be under 2 minutes) "/>
+            <h:inputText id="youtubeUrl" value="#{uploadController.youtubeURL}"/>
+            <br/><br/>
+            
+            
+            <h:outputLabel value="Price: "/>
+            <h:inputText id="price" value="#{uploadController.price}" required="true" requiredMessage="Price is required.">
+            <f:convertNumber type="number" />  
+        </h:inputText>
+            <h:message id="priceMessage" for="price" errorStyle="color:red"/>
+            <br/><br/>
+            
+            
+            <h:outputLabel value="Tags"/>
+            <h:inputTextarea id="tags" value="#{uploadController.tags}"/><br/><br/>
+            <h:commandButton value="Upload"  action="#{uploadController.uploadDes}">
+                <f:ajax execute="submitMediaForm" render="priceMessage" />
+            </h:commandButton><br/>
+            
+        </h:form>
+    </h:body>
+</html>
+

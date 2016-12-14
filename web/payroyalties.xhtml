@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Payout</title>
+    </h:head>
+    <h:body>
+
+        <h2>Here is a table of the weekly winners</h2><br/>
+        <h:form id="payoutForm">
+            <p:dataTable id="winnersTable" value="#{weeklyWinnersController.winners}" var="aRow">
+                <p:column headerText="Date">
+                    <h:outputText value="#{aRow.date}"/>
+                </p:column>
+                <p:column headerText="Media ID">
+                    <h:outputText value="#{aRow.mediaid}"/>
+                    </p:column>
+                <p:column headerText="Author">
+                    <h:outputText value="#{aRow.author}"/>
+                </p:column>
+                <p:column headerText="Been paid">
+                    <h:outputText value="#{aRow.beenpaid}"/>
+                </p:column>            
+            </p:dataTable>
+
+            
+         <h3>Who would you like to pay?</h3> 
+         <p:selectOneMenu value="#{weeklyWinnersController.payoutTo}">
+             <f:selectItem itemValue="---" itemLabel="Please select" />
+             <f:selectItems value="#{weeklyWinnersController.listsAvailDates}"
+                            var="winner" itemValue="#{winner.date}" itemLabel="#{winner.date}" />
+         </p:selectOneMenu><br/>
+         <p:commandButton value="Payout" action="#{weeklyWinnersController.payoutWinner()}"/>
+         <p:button value="Back" outcome="adminDashboard"/>         
+        
+      </h:form> 		
+       
+    </h:body>
+</html>
+

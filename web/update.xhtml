@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">  
+    <h:head>
+        <title>Update Profile</title>
+        <style>
+            #form {
+                text-align: center;
+                padding-top: 90px;
+            }
+            #back{
+                    position:fixed;
+                    right:0;
+                    top:0;
+                }    
+        </style>
+    </h:head>
+    <h:body>
+        <div id="back">
+            <h:form>
+                <p:commandButton id="back" value="Back" action="#{loginController.correctDashboard()}"/>                
+            </h:form>
+        </div>
+        <div id="form">
+        <h:form>
+            <h3>Update your Profile: </h3> <br/>
+            Email: <h:outputText id="email" value="#{loginController.email}" />
+            <br/><br/>
+            Password: <h:inputSecret required="true" requiredMessage="Enter a password." id="password" value="#{updateUserController.bean.password}" />
+            <h:message for="password" style="color:red" />
+            <br/><br/>
+            Fullname: <h:inputText id="fullname" required="true" requiredMessage="Enter your full name." value="#{updateUserController.bean.fullName}"/>
+            <h:message for="fullname" style="color:red " />
+            <br/><br/>
+            Check if you wish to subscribe to our mailing list:          
+            <h:selectBooleanCheckbox value="#{updateUserController.bean.subscribed}">
+                <f:selectItem id="yes" itemLabel="Yes" itemValue="Yes"></f:selectItem>
+            </h:selectBooleanCheckbox>
+            <br/><br/>
+            Select your user-level:
+            <h:selectOneListbox id="user-level" required="true" requiredMessage="Select a user-level." value="#{updateUserController.bean.userlevel}">
+                <f:selectItem itemValue="standard" itemLabel="Standard" />
+                <f:selectItem itemValue="admin" itemLabel="Admin" />
+            </h:selectOneListbox>
+            <h:message for="user-level" style="color:red " />
+            <br/> <br/>
+            Phone Number: <h:inputText id="phoneNo" required="true" requiredMessage="Enter your phone number." value="#{updateUserController.bean.phoneNumber}"/>
+            <h:message for="phoneNo" style="color:red " />
+            <br/><br/>     
+            <p:commandButton id="submit" value="Submit" action="#{updateUserController.updateUser}"/> 
+            <h:outputText value="#{updateUserController.updateStatus}" />
+
+        </h:form>
+        
+        </div>
+    </h:body>
+</html>
+
