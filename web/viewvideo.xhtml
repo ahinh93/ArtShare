@@ -24,9 +24,9 @@
          <br/><br/>
 
         <h:form id="searchForm">
-        <p:inputText id="seachTags" value="#{viewAllController.searchTerms}"  />
+            <p:inputText id="searchTags" value="#{viewAllController.searchTerms}"  />
         <p:button value="Search"  onclick="#{viewAllController.searchFor()}">
-            <f:ajax event="click" render="winnersTable"/>
+            <f:ajax event="click" execute="searchTags" render="winnersTable"/>
         </p:button><br/><br/>
         </h:form>
         <h:dataTable id="winnersTable" value="#{viewAllController.videos}" var="aRow"

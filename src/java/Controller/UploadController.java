@@ -35,6 +35,7 @@ public class UploadController {
     private String latestYouTube;
 
     public String getLatestYouTube() {
+        getLatestID();
         return latestYouTube;
     }
 
